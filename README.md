@@ -1,1 +1,1 @@
-# Deep-Learning-Translator-Implementation
+# CIFAR-10-Convolutional-Neural-Network
