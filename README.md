@@ -1,1 +1,3 @@
-# CIFAR-10-Convolutional-Neural-Network
+# Neural-Network-Pokemon-Identification
+
+Nerual network to identify images of pokemon
