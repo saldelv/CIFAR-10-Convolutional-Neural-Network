@@ -66,7 +66,7 @@ if __name__ == "__main__":
     # Creating dataset
     training_data = CustomImageDataset(
         annotation_file='labels.csv',
-        img_dir='datasettest',
+        img_dir='alldata',
         transform = transform,
         target_transform = None
     )

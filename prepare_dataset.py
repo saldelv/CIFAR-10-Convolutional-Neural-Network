@@ -2,8 +2,10 @@ import os
 import csv
 from PIL import Image
 
-dir = 'datasetfolders'
-targetdir = 'dataset'
+dir = 'data'
+if not os.path.exists('alldata'):
+    os.makedirs('alldata')
+targetdir = 'alldata'
 rows = []
 index = 0
 
