@@ -7,7 +7,6 @@ from torch.utils.data import DataLoader, Dataset
 import torch.optim as optim
 import torchvision.transforms as transforms 
 from torchvision.io import read_image, ImageReadMode
-from torchvision.utils import make_grid
 import matplotlib.pyplot as plt
 
 # Transformer
