@@ -4,7 +4,8 @@ from torch import nn as nn
 from torch.utils.data import DataLoader
 from torchvision.utils import make_grid
 import matplotlib.pyplot as plt
-from train import CustomImageDataset, transform, batch_size, Net, classes
+from train import CustomImageDataset, Net
+from constants import *
 
 # tests batch of images from dataset
 def test_batch():
@@ -57,6 +58,7 @@ def test_accuracy_classes():
         accuracy = 100 * float(correct_count) / total[classname]
         print(f'Accuracy for class: {classname:5s} is {accuracy:.1f} %')
 
+# Main
 if __name__ == "__main__":
 
     # Creating dataset

@@ -5,23 +5,9 @@ from torch import nn as nn
 from torch.nn import functional as F
 from torch.utils.data import DataLoader, Dataset
 import torch.optim as optim
-import torchvision.transforms as transforms 
 from torchvision.io import read_image, ImageReadMode
 import matplotlib.pyplot as plt
-
-# Transformer
-transform = transforms.Compose(
-    [transforms.ToPILImage('RGB'),
-     transforms.Resize([255, 255]),
-     transforms.ToTensor(),
-     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
-)
-
-# Batch size
-batch_size = 4
-
-# Images classes
-classes = ('Abra', 'Aerodactyl', 'Alakazam', 'Arbok', 'Arcanine', 'Articuno', 'Beedril', 'Bellsprout', 'Blastoise', 'Bulbasaur')
+from constants import *
 
 # Custom dataset class
 class CustomImageDataset(Dataset):
@@ -63,7 +49,8 @@ class Net(nn.Module):
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
         return x
-    
+
+# Main
 if __name__ == "__main__":
 
     # Creating dataset
