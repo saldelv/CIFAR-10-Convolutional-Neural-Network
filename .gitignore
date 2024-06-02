@@ -4,3 +4,4 @@
 *.pth
 data/
 data_merged/
+__pycache__/
