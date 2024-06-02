@@ -3,9 +3,9 @@ import csv
 from PIL import Image
 
 dir = 'data'
-if not os.path.exists('alldata'):
-    os.makedirs('alldata')
-targetdir = 'alldata'
+if not os.path.exists('data_merged'):
+    os.makedirs('data_merged')
+targetdir = 'data_merged'
 rows = []
 index = 0
 
@@ -15,7 +15,7 @@ for fname in os.listdir(dir):
     if os.path.isdir(path):
         for filename in os.listdir(path):
 
-            # Turns images to 8 bit depth for pytorch
+            # Turns pngs to 8 bit depth for pytorch
             image = Image.open(path + "/" + filename)
             if image.format == 'PNG':
                 image = image.quantize(colors=256, method=2)

@@ -20,6 +20,9 @@ transform = transforms.Compose(
 # Batch size
 batch_size = 4
 
+# Images classes
+classes = ('Abra', 'Aerodactyl', 'Alakazam', 'Arbok', 'Arcanine', 'Articuno', 'Beedril', 'Bellsprout', 'Blastoise', 'Bulbasaur')
+
 # Custom dataset class
 class CustomImageDataset(Dataset):
     def __init__(self, annotation_file, img_dir, transform, target_transform):
@@ -66,25 +69,13 @@ if __name__ == "__main__":
     # Creating dataset
     training_data = CustomImageDataset(
         annotation_file='labels.csv',
-        img_dir='alldata',
+        img_dir='data_merged',
         transform = transform,
         target_transform = None
     )
 
     # Creating dataloader
     train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=True)
-
-    # Testing dataloader
-    '''
-    train_features, train_labels = next(iter(train_dataloader))
-    print(f"Feature batch shape: {train_features.size()}")
-    print(f"Labels batch shape: {train_labels.size()}")
-    img = train_features[0].squeeze()
-    label = train_labels[0]
-    plt.imshow(img.permute(1, 2, 0))
-    plt.show()
-    print(f"Label: {label}")
-    '''
         
     net = Net()
 
