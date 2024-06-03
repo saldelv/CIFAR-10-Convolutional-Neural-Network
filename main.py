@@ -2,9 +2,12 @@ import tkinter
 from tkinter import *
 from tkinter import filedialog
 from PIL import ImageTk, Image
+import torch
 from torch import nn as nn
 from torch import load, max
 from torchvision.io import read_image, ImageReadMode
+import numpy
+from math import trunc
 from train import Net
 from constants import *
 
@@ -34,8 +37,12 @@ def identify(filepath):
     net.eval()
     net.load_state_dict(load('cifar_net.pth'))
     outputs = net(image)
-    _, predicted = max(outputs, 1)
-    prediction_label.configure(text='Prediction: ' + ''.join(f'{classes[predicted[0]]:5s}'), fg="black")
+    soft_out = torch.softmax(outputs, dim=1)
+    conf, predicted = max(soft_out, 1)
+    conf_number = conf[0].detach().numpy() * 100
+    conf_number = trunc(float(conf_number) * 10 ** 3) / 10 ** 3
+    message = 'Prediction: ' + ''.join(f'{classes[predicted[0]]:5s}') + '\nConfidence: ' + str(conf_number) + '%'
+    prediction_label.configure(text=message, fg="black")
 
 # Creating gui
 root = tkinter.Tk()
