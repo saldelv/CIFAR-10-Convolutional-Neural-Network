@@ -21,7 +21,6 @@ for fname in os.listdir(dir):
             image = Image.open(path + "/" + filename).convert('RGB')
             if image.format == 'PNG':
                 image = image.quantize(colors=256, method=2)
-            print(filename)
             image.save(targetdir + "/" + filename)
             # Stores filenames with indexes for csv
             rows.append([filename, index])
