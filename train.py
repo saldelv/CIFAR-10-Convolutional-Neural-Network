@@ -37,9 +37,9 @@ class Net(nn.Module):
         self.conv1 = nn.Conv2d(3, 6, 5)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(57600, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
+        self.fc1 = nn.Linear(57600, 512)
+        self.fc2 = nn.Linear(512, 512)
+        self.fc3 = nn.Linear(512, 149)
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
@@ -53,6 +53,9 @@ class Net(nn.Module):
 # Main
 if __name__ == "__main__":
 
+    # Setting device as gpu if available
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
     # Creating dataset
     training_data = CustomImageDataset(
         annotation_file='labels.csv',
@@ -65,6 +68,7 @@ if __name__ == "__main__":
     train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=True)
         
     net = Net()
+    net.to(device)
 
     # Loss function and optimizer
     criterion = nn.CrossEntropyLoss()
@@ -74,7 +78,7 @@ if __name__ == "__main__":
     for epoch in range(2):
         running_loss = 0.0
         for i, data in enumerate(train_dataloader):
-            inputs, labels = data
+            inputs, labels = data[0].to(device), data[1].to(device)
 
             optimizer.zero_grad()
 
