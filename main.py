@@ -29,7 +29,7 @@ def UploadAction(event=None):
 def identify(filepath):
     # Adding image
     image = read_image(filepath, ImageReadMode.RGB)
-    image = transform(image)
+    image = transform_test(image)
     image = image.float().unsqueeze(0)
 
     # Loading model
