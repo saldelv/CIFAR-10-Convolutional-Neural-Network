@@ -20,11 +20,11 @@ def test_batch():
     grid_img.shape
     plt.imshow(grid_img.permute(1, 2, 0))
     plt.show()
-    print('GroundTruth: ', ' '.join(f'{classes10[labels[j]]:5s}' for j in range(batch_size)))
+    print('GroundTruth: ', ' '.join(f'{classes[labels[j]]:5s}' for j in range(batch_size)))
 
     outputs = net(images)
     _, predicted = max(outputs, 1)
-    print('Predicted: ', ' '.join(f'{classes10[predicted[j]]:5s}' for j in range(batch_size)))
+    print('Predicted: ', ' '.join(f'{classes[predicted[j]]:5s}' for j in range(batch_size)))
 
 # tests overall accuracy
 def test_accuracy():
@@ -42,8 +42,8 @@ def test_accuracy():
 
 # tests accuracy of each class
 def test_accuracy_classes():
-    correct = {classname: 0 for classname in classes10}
-    total = {classname: 0 for classname in classes10}
+    correct = {classname: 0 for classname in classes}
+    total = {classname: 0 for classname in classes}
 
     with no_grad():
         for data in test_dataloader:
@@ -52,8 +52,8 @@ def test_accuracy_classes():
             _, predicted = max(outputs, 1)
             for label, prediction in zip(labels, predicted):
                 if label == prediction:
-                    correct[classes10[label]] += 1
-                total[classes10[label]] += 1
+                    correct[classes[label]] += 1
+                total[classes[label]] += 1
     for classname, correct_count in correct.items():
         accuracy = 100 * float(correct_count) / total[classname]
         print(f'Accuracy for class: {classname:5s} is {accuracy:.1f} %')
@@ -63,8 +63,8 @@ if __name__ == "__main__":
 
     # Creating dataset
     test_data = CustomImageDataset(
-        annotation_file='labels10.csv',
-        img_dir='data_merged10',
+        annotation_file='labels.csv',
+        img_dir='data_merged',
         transform = transform_test,
         target_transform = None
     )
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     # Loading trained model
     net = Net()
     net.eval()
-    net.load_state_dict(load('cifar_net10.pth'))
+    net.load_state_dict(load('cifar_net.pth'))
 
     # Calls functions, can comment out for select tests
     #test_batch()
